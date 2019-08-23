@@ -1,0 +1,14 @@
+!!!!!!!!!!!!!!!!!
+!!!!TODO LIST!!!!
+!!!!!!!!!!!!!!!!!
+
+Collision +
+Player class +
+Pause ---
+Main Menu +
+Multiplayer ---
+
+Ball +
+Game base +
+Count text +
+Loader resources +
