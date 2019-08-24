@@ -4,7 +4,7 @@
 
 Collision +
 Player class +
-Pause ---
+Pause +
 Main Menu +
 Multiplayer ---
 Ball +

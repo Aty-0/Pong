@@ -4,7 +4,7 @@
 //=================================================
 
 #pragma once
-#define GAME_VERSION = 1.05;
+#define GAME_VERSION = 1.08;
 #include "SFML/Graphics.hpp"
 #include "SFML/Network.hpp"
 #include "macros.h"
@@ -39,14 +39,15 @@ public:
 	int m_WindowHeight = 600;
 	int m_WindowPosX = 300;
 	int m_WindowPosY = 300;
+	Color m_Background_Color;
 	bool m_FullScreen = false;
 	bool m_MouseVisible = false;
 	int  m_FrameRateLimit = 60;
 	int  m_VSync = 0;
 	//Options
 
-	//Game pause
-	bool GamePaused;
+	//GameActive
+	bool GameActive;
 	//If app exit or get error all app update stopped
 	bool LOOP_UPDATE;
 };

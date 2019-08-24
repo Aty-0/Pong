@@ -6,10 +6,12 @@
 #include "Ball.h"
 #include "Player.h"
 #include "SoundLoader.h"
+#include "Config.h"
 
 CBall::CBall()
 {
 	logger->Print("Ball created", logger->Debug);
+	//Default stats ball, if configs not read 
 	m_Ball_PositionX = 400.0f;
 	m_Ball_PositionY = 250.0f;
 	m_Ball_ScaleX = 1.0f;
@@ -21,8 +23,15 @@ CBall::CBall()
 	m_Ball_Color = Color::White;
 	m_Ball_Stop_All_Logic = false;
 	m_Pass_Pause_Default_Time = 10.0f;
-
+	//Load configs
+	config->LoadConfig("Gamedata/Config/ball.xml", "Speed", m_Ball_Speed);
+	config->LoadConfig("Gamedata/Config/ball.xml", "SizeX", m_Ball_SizeX);
+	config->LoadConfig("Gamedata/Config/ball.xml", "SizeY", m_Ball_SizeY);
+	config->LoadConfig("Gamedata/Config/ball.xml", "Angle", m_Ball_Angle);
+	config->LoadConfig("Gamedata/Config/ball.xml", "PassTime", m_Pass_Pause_Default_Time);
+	//Update Stats
 	UpdateBallStats();
+	//Random pass to player
 	RandomPassBall();
 }
 

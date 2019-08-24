@@ -10,6 +10,7 @@
 #include "CountText.h"
 #include "Ball.h"
 #include "Player.h"
+#include "Pause.h"
 
 class CMainMenu : public Fonts
 {

@@ -6,6 +6,8 @@
 #include "MainMenu.h"
 #include "Cursor.h"
 #include "AIMode.h"
+#include "SoundLoader.h"
+
 //TODO Make a object list(UI Elements, Game Objects), create and render it.
 
 CCursor *cursor = NULL;
@@ -24,8 +26,10 @@ CMainMenu::~CMainMenu()
 
 void CMainMenu::LaunchMenu()
 {
-	//Paused game
-	game->GamePaused = true;
+	soundloader->StopAllSounds();
+	//Stop active game
+	game->GameActive = false;
+	pause->GamePaused = false;
 	//Create Cursor
 	cursor = new CCursor();
 	//Set Main scene
@@ -69,6 +73,7 @@ void CMainMenu::LoadScene()
 void CMainMenu::LaunchGame()
 {
 	logger->Print("Load all game classes", logger->Debug);
+	soundloader->StopAllSounds();
 
 	//Game 
 	if (m_GameMode == CMainMenu::AI_MODE)
@@ -84,8 +89,8 @@ void CMainMenu::LaunchGame()
 	ball = new CBall();
 	pong_grig = new CPong_grid();
 	//Game 
-	//UnPause game 
-	game->GamePaused = false;
+	
+	game->GameActive = true;
 
 	//Delete menu
 	logger->Print("Delete menu class!", logger->Debug);
@@ -108,6 +113,7 @@ void CMainMenu::KeyEvents(Event event, RenderWindow &window)
 			game->OnExit(window);
 		}
 		break;
+
 	case CMainMenu::MODE_SELECTION:
 		if (event.key.code == Keyboard::D)
 		{

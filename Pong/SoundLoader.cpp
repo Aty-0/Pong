@@ -13,13 +13,19 @@ void CSoundLoader::PlaySoundFromFile(std::string Path, float Volume, float Pitch
 	else
 	{
 		//logger->Print("Sound played " + std::string(Path) + " Volume = " + to_string(Volume) + " Pitch = " + to_string(Pitch) + " Loop = " + to_string(Loop), logger->Debug);
-		sound.setBuffer(m_buffer);
-		sound.setLoop(Loop);
-		sound.setPitch(Pitch);
-		//sound.setPlayingOffset(m_Offset);
-		sound.setVolume(Volume);
-		sound.play();
+		m_sound.setBuffer(m_buffer);
+		m_sound.setLoop(Loop);
+		m_sound.setPitch(Pitch);
+		//m_sound.setPlayingOffset(m_Offset);
+		m_sound.setVolume(Volume);
+		m_sound.play();
 	}
+}
+
+void CSoundLoader::StopAllSounds()
+{
+	m_sound.stop();
+	m_music.stop();
 }
 
 void CSoundLoader::PlayAmbFromFile(std::string Path, float Volume, float Pitch)

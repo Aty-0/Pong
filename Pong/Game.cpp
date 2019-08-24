@@ -6,7 +6,10 @@
 #include "MainMenu.h"
 #include "SoundLoader.h"
 #include "AIMode.h"
+#include "Config.h"
 
+CConfig *config = NULL;
+CPause *pause = NULL;
 CCountText *counttext = NULL;
 CBall *ball = NULL;
 CLogger *logger = NULL;
@@ -22,8 +25,9 @@ CGame::CGame()
 {
 	game = this;
 	logger = new CLogger();
+	config = new CConfig();
 	LOOP_UPDATE = true;
-	GamePaused = false;
+	GameActive = false;
 	CreateGame();
 }
 
@@ -35,6 +39,13 @@ CGame::~CGame()
 
 void CGame::CreateWindow()
 {
+	config->LoadConfig("Gamedata/Config/game.xml", "VSync", m_VSync);
+	config->LoadConfig("Gamedata/Config/game.xml", "MouseVisible", m_MouseVisible);
+	config->LoadConfig("Gamedata/Config/game.xml", "Fullscreen", m_FullScreen);
+	config->LoadConfig("Gamedata/Config/game.xml", "WndX", m_WindowPosX);
+	config->LoadConfig("Gamedata/Config/game.xml", "WndY", m_WindowPosY);
+	config->LoadConfig("Gamedata/Config/game.xml", "FpsLimit", m_FrameRateLimit);
+	config->LoadConfig("Gamedata/Config/game.xml", m_Background_Color);
 	//Video Mode
 	m_VideoMode.width = m_WindowWidth;
 	m_VideoMode.height = m_WindowHeight;
@@ -88,42 +99,51 @@ void CGame::LoadGame(RenderWindow &window)
 	}
 	else
 	{
-		mainmenu = new CMainMenu();
+		pause = new CPause();
 		aimode = new AIMode();
 		soundloader = new CSoundLoader();
+		//Start game
+		mainmenu = new CMainMenu();	
 	}
-
 }
 
 void CGame::OnRender(RenderWindow &window)
 {
-	window.clear();
-	if (GamePaused == true)
+	if (GameActive == false)
 	{
+		window.clear(Color::Black);
 		mainmenu->OnRender(window);
 	}
 	else 
 	{
+		window.clear(m_Background_Color);
 		ball->OnRender(window);
 		pong_grig->OnRender(window);
 		p1->OnRender(window);
 		p2->OnRender(window);
-		counttext->OnRender(window);	
+		counttext->OnRender(window);
+
+		if (pause->GamePaused == true)
+			pause->OnRender(window);
+		
 	}
 	window.display();
 }
 
 void CGame::OnUpdate(RenderWindow &window)
 {
-	if (GamePaused == true)
+	if (GameActive == false)
 	{
 		mainmenu->OnUpdate(window);
 	}
 	else
 	{
-		ball->OnUpdate();
-		p1->OnUpdate();
-		p2->OnUpdate();		
+		if (pause->GamePaused == false)
+		{
+			ball->OnUpdate();
+			p1->OnUpdate();
+			p2->OnUpdate();
+		}
 	}
 }
 
@@ -146,7 +166,7 @@ void CGame::UpdateEvent(RenderWindow &window)
 
 		if(event.type == Event::KeyReleased)
 		{
-			if (GamePaused == false)
+			if (GameActive == true)
 			{
 				p1->KeyReleased(event);
 				p2->KeyReleased(event);
@@ -155,10 +175,13 @@ void CGame::UpdateEvent(RenderWindow &window)
 
 		if (event.type == Event::KeyPressed)
 		{
-			if (GamePaused == true)
+			if (GameActive == false)
 				mainmenu->KeyEvents(event, window);
 
-			if (GamePaused == false)
+			if (pause->GamePaused == true)
+				pause->KeyEvents(event);
+
+			if (GameActive == true)
 			{
 				p1->KeyPressed(event);
 				p2->KeyPressed(event);
@@ -173,9 +196,9 @@ void CGame::UpdateEvent(RenderWindow &window)
 
 			if (event.key.code == Keyboard::Escape)
 			{
-				if (GamePaused == false)
+				if (pause->GamePaused == true)
 					mainmenu = new CMainMenu();
-				else
+				else if (GameActive == false)
 				{
 					if (mainmenu->m_CorrectScene == mainmenu->m_MainMenuScenes::MAIN)
 						OnExit(window);
@@ -185,6 +208,8 @@ void CGame::UpdateEvent(RenderWindow &window)
 						mainmenu->LoadScene();
 					}
 				}
+				else if (GameActive == true || pause->GamePaused == false)
+					pause->GamePaused = true;
 			}
 		}
 	}
