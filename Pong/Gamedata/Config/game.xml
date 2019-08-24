@@ -1,0 +1,16 @@
+<Game>
+ <!-- GAME OPTIONS -->
+ <VSync>0</VSync>
+ <MouseVisible>false</MouseVisible>
+ <Fullscreen>false</Fullscreen>
+  <!--Position Window -->
+ <WndX>300</WndX>
+ <WndY>300</WndY>
+ <!--FpsLimit -->
+ <FpsLimit>60</FpsLimit>
+ <!-- Color Background -->
+ <R>0.0</R>
+ <G>0.0</G>
+ <B>0.0</B>
+ <!-- GAME OPTIONS -->
+</Game>

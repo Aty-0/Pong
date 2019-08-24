@@ -29,6 +29,7 @@ CBall::CBall()
 	config->LoadConfig("Gamedata/Config/ball.xml", "SizeY", m_Ball_SizeY);
 	config->LoadConfig("Gamedata/Config/ball.xml", "Angle", m_Ball_Angle);
 	config->LoadConfig("Gamedata/Config/ball.xml", "PassTime", m_Pass_Pause_Default_Time);
+	config->LoadConfig("Gamedata/Config/ball.xml", m_Ball_Color);
 	//Update Stats
 	UpdateBallStats();
 	//Random pass to player
