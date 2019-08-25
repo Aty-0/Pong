@@ -8,7 +8,7 @@
 
 CPause::CPause()
 {
-	CREATE_TEXT(PauseText, 20, Default_Font, Color::White, 10, 50, "Paused\nEsc - Main Menu\nEnter - Resume");
+	CREATE_TEXT(PauseText, 20, Default_Font, Color::White, 20, 50, "Paused!\nEsc - Main Menu\nEnter - Resume");
 }
 
 void CPause::OnRender(RenderWindow &window)

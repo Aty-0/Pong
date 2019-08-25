@@ -39,13 +39,6 @@ CGame::~CGame()
 
 void CGame::CreateWindow()
 {
-	config->LoadConfig("Gamedata/Config/game.xml", "VSync", m_VSync);
-	config->LoadConfig("Gamedata/Config/game.xml", "MouseVisible", m_MouseVisible);
-	config->LoadConfig("Gamedata/Config/game.xml", "Fullscreen", m_FullScreen);
-	config->LoadConfig("Gamedata/Config/game.xml", "WndX", m_WindowPosX);
-	config->LoadConfig("Gamedata/Config/game.xml", "WndY", m_WindowPosY);
-	config->LoadConfig("Gamedata/Config/game.xml", "FpsLimit", m_FrameRateLimit);
-	config->LoadConfig("Gamedata/Config/game.xml", m_Background_Color);
 	//Video Mode
 	m_VideoMode.width = m_WindowWidth;
 	m_VideoMode.height = m_WindowHeight;
@@ -70,6 +63,14 @@ void CGame::CreateWindow()
 
 void CGame::CreateGame()
 {
+	logger->Print("Try load game config", logger->Debug);
+	config->LoadConfig("Gamedata/Config/game.xml", "VSync", m_VSync);
+	config->LoadConfig("Gamedata/Config/game.xml", "MouseVisible", m_MouseVisible);
+	config->LoadConfig("Gamedata/Config/game.xml", "Fullscreen", m_FullScreen);
+	config->LoadConfig("Gamedata/Config/game.xml", "WndX", m_WindowPosX);
+	config->LoadConfig("Gamedata/Config/game.xml", "WndY", m_WindowPosY);
+	config->LoadConfig("Gamedata/Config/game.xml", "FpsLimit", m_FrameRateLimit);
+	config->LoadConfig("Gamedata/Config/game.xml", m_Background_Color);
 	logger->Print("Create Window", logger->Debug);
 	CreateWindow();
 
@@ -109,14 +110,13 @@ void CGame::LoadGame(RenderWindow &window)
 
 void CGame::OnRender(RenderWindow &window)
 {
+	window.clear(m_Background_Color);
 	if (GameActive == false)
 	{
-		window.clear(Color::Black);
 		mainmenu->OnRender(window);
 	}
 	else 
 	{
-		window.clear(m_Background_Color);
 		ball->OnRender(window);
 		pong_grig->OnRender(window);
 		p1->OnRender(window);

@@ -205,6 +205,5 @@ bool CConfig::LoadConfig(const char *Path, Color &color)
 	_r = 0;
 	_g = 0;
 	_b = 0;
-	logger->Print("r = " + to_string(color.r) + " g = " + to_string(color.g) + " b = " + to_string(color.b), logger->Debug);
 	return 1;
 }

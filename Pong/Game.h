@@ -4,7 +4,6 @@
 //=================================================
 
 #pragma once
-#define GAME_VERSION = 1.08;
 #include "SFML/Graphics.hpp"
 #include "SFML/Network.hpp"
 #include "macros.h"
@@ -23,6 +22,8 @@ public:
 	Clock m_clock;
 	Int64 m_time;
 	//engine
+    const double GAME_VERSION = 1.00000;
+
 	virtual void CreateGame();
 	virtual void LoadGame(RenderWindow &window);
 	virtual void OnRender(RenderWindow &window);
@@ -39,7 +40,7 @@ public:
 	int m_WindowHeight = 600;
 	int m_WindowPosX = 300;
 	int m_WindowPosY = 300;
-	Color m_Background_Color;
+	Color m_Background_Color = Color::Black;
 	bool m_FullScreen = false;
 	bool m_MouseVisible = false;
 	int  m_FrameRateLimit = 60;

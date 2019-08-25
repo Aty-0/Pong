@@ -128,7 +128,7 @@
       <AdditionalIncludeDirectories>C:\Users\User\source\repos\Pong\libraries\SFML\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LinkStatus>
       </LinkStatus>
