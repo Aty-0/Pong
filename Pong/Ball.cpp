@@ -76,10 +76,13 @@ void CBall::UpdateGlobalBounds()
 
 void CBall::Reset()
 {
+	//Reset Ball position
 	m_Ball_PositionX = 400.0f;
+	//Set pause
 	m_Pass_Pause_Time = m_Pass_Pause_Default_Time;
 	m_Pass_Pause = true;
 	m_Ball_Draw = false;
+	//Pass ball
 	PassBall();
 }
 
@@ -107,7 +110,7 @@ void CBall::RandomPassBall()
 	m_Pass_Pause_Time = m_Pass_Pause_Default_Time;
 	m_Pass_Pause = true;
 	m_Ball_Draw = false;
-
+	//Reset 
 	m_Pass_PosY = 0;
 }
 
@@ -135,8 +138,9 @@ void CBall::PassBall()
 		m_Push = m_Push_Status::Put_Down;
 	else if (m_Ball_PositionY <= 300)
 		m_Push = m_Push_Status::Lift_Up;
-
+	//Reset
 	m_Pass_PosY = 0;
+
 	m_Pass_Player = m_Pass_Scored;
 }
 

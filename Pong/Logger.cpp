@@ -5,6 +5,7 @@
 
 #include "Logger.h"
 #include "Game.h"
+#include <windows.h>
 
 //Print on console and log output 
 void CLogger::Print(string Text, TypeMessage type)
@@ -22,7 +23,7 @@ void CLogger::Print(string Text, TypeMessage type)
 	case CLogger::Error:
 		cout << "Error: " << Text << endl;
 		LogOutput += string("\nError: ") + string(Text);
-		game->LOOP_UPDATE = false;
+		//game->LOOP_UPDATE = false;
 		break;
 	case CLogger::FatalError:
 		cout << "FatalError: " << Text << endl;
@@ -30,7 +31,11 @@ void CLogger::Print(string Text, TypeMessage type)
 		game->LOOP_UPDATE = false;
 		break;
 	}
+}
 
+void CLogger::ShowErrorMsg()
+{
+	MessageBox(0, L"FATAL ERROR!\nSee log for details.", L"FATAL ERROR", 0);
 }
 
 //Create a Log File

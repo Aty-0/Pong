@@ -16,7 +16,7 @@ CLogger *logger = NULL;
 CPong_grid *pong_grig = NULL;
 CMainMenu *mainmenu = NULL;
 CSoundLoader *soundloader = NULL;
-AIMode *aimode = NULL;
+CAIMode *aimode = NULL;
 //Players
 CPlayer *p1 = NULL;
 CPlayer *p2 = NULL;
@@ -39,6 +39,7 @@ CGame::~CGame()
 
 void CGame::CreateWindow()
 {
+	logger->Print("Create Window", logger->Debug);
 	//Video Mode
 	m_VideoMode.width = m_WindowWidth;
 	m_VideoMode.height = m_WindowHeight;
@@ -61,7 +62,7 @@ void CGame::CreateWindow()
 	window.setVerticalSyncEnabled(m_VSync);
 }
 
-void CGame::CreateGame()
+void CGame::LoadMainGameConfigs()
 {
 	logger->Print("Try load game config", logger->Debug);
 	config->LoadConfig("Gamedata/Config/game.xml", "VSync", m_VSync);
@@ -71,23 +72,34 @@ void CGame::CreateGame()
 	config->LoadConfig("Gamedata/Config/game.xml", "WndY", m_WindowPosY);
 	config->LoadConfig("Gamedata/Config/game.xml", "FpsLimit", m_FrameRateLimit);
 	config->LoadConfig("Gamedata/Config/game.xml", m_Background_Color);
-	logger->Print("Create Window", logger->Debug);
-	CreateWindow();
+}
 
+void CGame::CreateGame()
+{
+	LoadMainGameConfigs();
+	CreateWindow();
 	LoadGame(window);
 
 	logger->Print("Create loop", logger->Debug);
 	//Create loop
-	while(window.isOpen() || LOOP_UPDATE == true)
+	while(window.isOpen())
 	{
-		//Set Engine Time
-		m_time = m_clock.getElapsedTime().asMicroseconds();
-		m_clock.restart();
-		m_time = m_time / 800;
-		//Update event
-		UpdateEvent(window);
-		OnRender(window);
-		OnUpdate(window);	
+		if (LOOP_UPDATE == false)
+		{
+			OnExit(window);
+			break;
+		}
+		else
+		{
+			//Set Engine Time
+			m_time = m_clock.getElapsedTime().asMicroseconds();
+			m_clock.restart();
+			m_time = m_time / 800;
+			//Update event
+			UpdateEvent(window);
+			OnRender(window);
+			OnUpdate(window);
+		}
 	}
 }
 
@@ -101,7 +113,7 @@ void CGame::LoadGame(RenderWindow &window)
 	else
 	{
 		pause = new CPause();
-		aimode = new AIMode();
+		aimode = new CAIMode();
 		soundloader = new CSoundLoader();
 		//Start game
 		mainmenu = new CMainMenu();	
@@ -150,9 +162,11 @@ void CGame::OnUpdate(RenderWindow &window)
 void CGame::OnExit(RenderWindow &window)
 {
 	logger->Print("Shutdown", logger->Debug);
-	LOOP_UPDATE = false;
 	logger->CreateLogFile();
+	if (LOOP_UPDATE == false)
+		logger->ShowErrorMsg();
 	SAFE_DELETE(logger);
+	LOOP_UPDATE = false;
 	window.close();
 }
 

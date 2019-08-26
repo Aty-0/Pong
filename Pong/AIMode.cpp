@@ -5,7 +5,7 @@
 
 #include "AIMode.h"
 
-void AIMode::Update()
+void CAIMode::Update()
 {
 	if (ball->m_Pass_Pause == false)
 	{
@@ -53,7 +53,7 @@ void AIMode::Update()
 	}
 }
 
-void AIMode::RegenerateFault()
+void CAIMode::RegenerateFault()
 {
 	TimeRegenerateFault = 5.0f;
 	AI_Max_Fault = std::rand() % 100;

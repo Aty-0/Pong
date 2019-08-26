@@ -52,13 +52,13 @@ void CMainMenu::LoadScene()
 	{
 	case CMainMenu::MAIN:
 		//Create text's
-		CREATE_TEXT(Scene_Menu_Ver_Text, 12, Default_Font, Color::White, 0, game->m_WindowHeight - 30.0f, "v" + to_string(game->GAME_VERSION) +"\nGame by Antd23rus");
+		CREATE_TEXT(Scene_Menu_Ver_Text, 12, Default_Font, Color::White, 0, game->m_WindowHeight - 30.0f, "v" + string(game->GAME_VERSION) +"\nGame by Antd23rus");
 		CREATE_TEXT(Scene_Menu_Logo_Text, 35, Default_Font, Color::White, game->m_WindowWidth - 450.0f, 30, "Pong");
 		CREATE_TEXT(Scene_Menu_Text, 15, Default_Font, Color::White, game->m_WindowWidth - 450.0f, 100, "Enter - Launch game\nE - Exit");
 		break;
 	case CMainMenu::MODE_SELECTION:
 		CREATE_TEXT(Scene_Menu_Selection_Text, 25, Default_Font, Color::White, 0.0f, 30, "Mode selections");
-		CREATE_TEXT(Scene_Menu_List_Selection_Text, 15, Default_Font, Color::White, 0, 100, "D - Default \nA - Playing with bot");
+		CREATE_TEXT(Scene_Menu_List_Selection_Text, 15, Default_Font, Color::White, 0, 100, "D - Default \nA - Play with bot");
 		CREATE_TEXT(Scene_Menu_Back_Text, 15, Default_Font, Color::White, game->m_WindowWidth - 200, game->m_WindowHeight, "Esc - Back to Menu");
 		break;
 

@@ -8,7 +8,7 @@
 #include "Player.h"
 #include "Ball.h"
 
-class AIMode
+class CAIMode
 {
 public:
 	//That for start ai mode
@@ -26,5 +26,5 @@ public:
 	virtual void Update();
 };
 
-extern AIMode *aimode;
+extern CAIMode *aimode;
 

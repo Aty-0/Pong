@@ -21,16 +21,17 @@ public:
 	//Time 
 	Clock m_clock;
 	Int64 m_time;
-	//engine
-    const double GAME_VERSION = 1.00000;
+	//Engine
+	const char *GAME_VERSION = "1.00001";
 
-	virtual void CreateGame();
-	virtual void LoadGame(RenderWindow &window);
-	virtual void OnRender(RenderWindow &window);
-	virtual void OnUpdate(RenderWindow &window);
-	virtual void UpdateEvent(RenderWindow &window);
-	virtual void OnExit(RenderWindow &window);
-	virtual void CreateWindow();
+	void CreateGame();
+	void LoadGame(RenderWindow &window);
+	void OnRender(RenderWindow &window);
+	void OnUpdate(RenderWindow &window);
+	void UpdateEvent(RenderWindow &window);
+	void OnExit(RenderWindow &window);
+	void CreateWindow();
+	void LoadMainGameConfigs();
 
 	//Options
 	RenderWindow window;

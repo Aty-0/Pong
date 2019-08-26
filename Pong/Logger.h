@@ -8,6 +8,7 @@
 #include <fstream>
 #include <string>
 
+
 using namespace std;
 
 class CLogger
@@ -28,6 +29,7 @@ public:
 	//Print func for debug and print text on LogOutput
 	void Print(string Text, TypeMessage type);
 	void CreateLogFile();
+	void ShowErrorMsg();
 };
 
 extern CLogger *logger;
