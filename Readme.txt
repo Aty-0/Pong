@@ -9,7 +9,7 @@ TinyXML2
 
 --------------------------------------
 PATH 1.00001
-Fix when in fatal error game not closing
-Fix Text in Scene_Menu_List_Selection_Text 
-Small fixes on code
-Changed path to libraries. Now it look like this "..\libraries\SFML\include" and "..\libraries\SFML\lib-x86"
+(*)Fix when in fatal error game not closing
+(*)Fix Text in Scene_Menu_List_Selection_Text 
+(*)Small fixes on code
+(*)Changed path to libraries. Now it look like this "..\libraries\SFML\include" and "..\libraries\SFML\lib-x86"
