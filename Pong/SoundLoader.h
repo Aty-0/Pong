@@ -13,7 +13,6 @@ public:
 	SoundBuffer m_buffer;
 	Sound m_sound;
 	Music m_music;
-	//Time m_Offset;
 	virtual void StopAllSounds();
 	virtual void PlaySoundFromFile(std::string Path, float Volume, float Pitch, bool Loop);
 	virtual void PlayAmbFromFile(std::string Path, float Volume, float Pitch);

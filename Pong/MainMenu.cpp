@@ -80,8 +80,8 @@ void CMainMenu::LaunchGame()
 		aimode->AIMode_Work = false;
 	
 	//Create a players
-	p1 = new CPlayer(100.0f, 300.0f, 7.0f, 50.0f, 0.5f);
-	p2 = new CPlayer(700.0f, 300.0f, 7.0f, 50.0f, 0.5f);
+	p1 = new CPlayer(50.0f, 300.0f, 7.0f, 50.0f, 0.5f);
+	p2 = new CPlayer(750.0f, 300.0f, 7.0f, 50.0f, 0.5f);
 	//Create other game elements
 	counttext = new CCountText();
 	ball = new CBall();

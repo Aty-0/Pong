@@ -13,22 +13,18 @@ void CLogger::Print(string Text, TypeMessage type)
 	switch (type)
 	{
 	case CLogger::Debug:
-		cout << "Debug: " << Text << endl;
 		LogOutput += string("\nDebug: ") + string(Text);
 		break;
 	case CLogger::Warning:
-		cout << "Warning: " << Text << endl;
 		LogOutput += string("\nWarning: ") + string(Text);
 		break;
 	case CLogger::Error:
-		cout << "Error: " << Text << endl;
 		LogOutput += string("\nError: ") + string(Text);
 		//game->LOOP_UPDATE = false;
 		break;
 	case CLogger::FatalError:
-		cout << "FatalError: " << Text << endl;
 		LogOutput += string("\nFatalError: ") + string(Text);
-		game->LOOP_UPDATE = false;
+		game->m_App_State = false;
 		break;
 	}
 }

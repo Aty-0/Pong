@@ -26,7 +26,7 @@ CGame::CGame()
 	game = this;
 	logger = new CLogger();
 	config = new CConfig();
-	LOOP_UPDATE = true;
+	m_App_State = true;
 	GameActive = false;
 	CreateGame();
 }
@@ -84,7 +84,7 @@ void CGame::CreateGame()
 	//Create loop
 	while(window.isOpen())
 	{
-		if (LOOP_UPDATE == false)
+		if (m_App_State == false)
 		{
 			OnExit(window);
 			break;
@@ -162,12 +162,17 @@ void CGame::OnUpdate(RenderWindow &window)
 void CGame::OnExit(RenderWindow &window)
 {
 	logger->Print("Shutdown", logger->Debug);
+	//Create Log
 	logger->CreateLogFile();
-	if (LOOP_UPDATE == false)
+	//if app state = false it's error
+	if (m_App_State == false)
 		logger->ShowErrorMsg();
+	else
+		m_App_State = false;
+	//Delete logger
 	SAFE_DELETE(logger);
-	LOOP_UPDATE = false;
 	window.close();
+	SAFE_DELETE(game);
 }
 
 void CGame::UpdateEvent(RenderWindow &window)

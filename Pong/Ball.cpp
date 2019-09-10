@@ -61,17 +61,14 @@ void CBall::UpdateBallStats()
 	m_Ball.setScale(m_Ball_ScaleX, m_Ball_ScaleY);
 	m_Ball.setRotation(m_Ball_Angle);
 	m_Ball.setFillColor(m_Ball_Color);
-	//Ball size
-	getGlobalBounds.width = m_Ball_SizeX;
-	getGlobalBounds.height = m_Ball_SizeY;
 }
 
 void CBall::UpdateGlobalBounds()
 {
-	getGlobalBounds.top = m_Ball_PositionY;
-	getGlobalBounds.left = m_Ball_PositionX;
-	getGlobalBounds.width = m_Ball_SizeX;
-	getGlobalBounds.height = m_Ball_SizeY;
+	m_Ball_Rect.top = m_Ball_PositionY;
+	m_Ball_Rect.left = m_Ball_PositionX;
+	m_Ball_Rect.width = m_Ball_SizeX;
+	m_Ball_Rect.height = m_Ball_SizeY;
 }
 
 void CBall::Reset()
@@ -151,10 +148,7 @@ void CBall::OnUpdate()
 		m_Ball.setPosition(m_Ball_PositionX, m_Ball_PositionY);
 		if (m_Pass_Pause == false)
 		{
-			//Collision
-			UpdateGlobalBounds();
-			DetectCollision();
-
+			//Pass
 			if (m_Pass_Player == 0)
 			{
 				m_Ball_PositionX += m_Ball_Speed * game->m_time;
@@ -163,7 +157,7 @@ void CBall::OnUpdate()
 			{
 				m_Ball_PositionX -= m_Ball_Speed * game->m_time;
 			}
-
+			//m_Push func
 			if (m_Push == m_Push_Status::Lift_Up)
 			{
 				m_Ball_PositionY += m_Ball_Speed * game->m_time;
@@ -172,6 +166,9 @@ void CBall::OnUpdate()
 			{
 				m_Ball_PositionY -= m_Ball_Speed * game->m_time;
 			}
+			//Collision
+			UpdateGlobalBounds();
+			DetectCollision();
 		}
 		else
 		{
@@ -190,16 +187,13 @@ void CBall::OnUpdate()
 void CBall::DetectCollision()
 {
 	//Check collision with player
-	if (ball->getGlobalBounds.intersects(p1->getGlobalBounds))
+	if (ball->m_Ball_Rect.intersects(p1->m_Player_Rect))
 	{
-		//logger->Print("Player one touch ball", logger->Debug);
 		soundloader->PlaySoundFromFile("Gamedata/Sounds/Ball_Hitted.wav", 5.0f, 1.0f, false);
 		m_Pass_Player = 0;
 	}
-
-	if (ball->getGlobalBounds.intersects(p2->getGlobalBounds))
+	else if (ball->m_Ball_Rect.intersects(p2->m_Player_Rect))
 	{
-		//logger->Print("Player two touch ball", logger->Debug);
 		soundloader->PlaySoundFromFile("Gamedata/Sounds/Ball_Hitted.wav", 5.0f, 1.0f, false);
 		m_Pass_Player = 1;
 	}

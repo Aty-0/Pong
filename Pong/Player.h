@@ -37,7 +37,7 @@ public:
 	float m_Player_ScaleY;
 	float m_Player_Speed;
 
-	FloatRect getGlobalBounds;
+	FloatRect m_Player_Rect;
 
 	//Walk 
 	bool m_walk_up;

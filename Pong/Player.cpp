@@ -152,10 +152,10 @@ void CPlayer::KeyReleased(Event event)
 
 void CPlayer::UpdateGlobalBounds()
 {
-	getGlobalBounds.top = m_Player_PositionY;
-	getGlobalBounds.left = m_Player_PositionX;
-	getGlobalBounds.width = m_Player_SizeX;
-	getGlobalBounds.height = m_Player_SizeY;
+	m_Player_Rect.top = m_Player_PositionY;
+	m_Player_Rect.left = m_Player_PositionX;
+	m_Player_Rect.width = m_Player_SizeX;
+	m_Player_Rect.height = m_Player_SizeY;
 }
 
 //Update Func

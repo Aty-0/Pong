@@ -22,7 +22,7 @@ public:
 	Clock m_clock;
 	Int64 m_time;
 	//Engine
-	const char *GAME_VERSION = "1.00001";
+	const char *GAME_VERSION = "1.00002";
 
 	void CreateGame();
 	void LoadGame(RenderWindow &window);
@@ -51,7 +51,7 @@ public:
 	//GameActive
 	bool GameActive;
 	//If app exit or get error all app update stopped
-	bool LOOP_UPDATE;
+	bool m_App_State;
 };
 
 extern CGame *game;

@@ -1,18 +1,37 @@
-For startup game need instal OpenAL!
+For startup game:
+1.Need instal OpenAL!
+2.Need instal Microsoft Visual C++
+3.Don't delete dll and gamedata on game folder
 
-Known Problems
-Ai Mode(Bot) Lagged.
-Ball Lagged and rarely skip collision.
-
-Maybe im fix this problems in next path :)
-
-For this game im used 
+!!!For this game i'm used!!!
 SFML
 TinyXML2
 
+Released Paths:
+--------------------------------------
+[NAME_CLASS]
+
+(*) = Edit
+(+) = Added
+(-) = Cutted
+--------------------------------------
+
+PATH 1.00002
+[ALL]
+(*)Small fixes on code
+[COUNT TEXT]
+(*)Changed count text size | 20 - 18
+(*)Added spacing on text
+[PLAYER]
+(*)Changed position 
 --------------------------------------
 PATH 1.00001
-Fix when in fatal error game not closing
-Fix Text in Scene_Menu_List_Selection_Text 
-Small fixes on code
-Changed path to libraries. Now it look like this "..\libraries\SFML\include" and "..\libraries\SFML\lib-x86"
+[GAME]
+(*)Fix when in fatal error game not closing
+[MAIN MENU]
+(*)Fix Text in Scene_Menu_List_Selection_Text 
+[PROJECT]
+(*)Changed path to libraries. Now it look like this "..\libraries\SFML\include" and "..\libraries\SFML\lib-x86"
+[ALL]
+(*)Small fixes on code
+

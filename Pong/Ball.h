@@ -36,7 +36,7 @@ public:
 	//Ball stats
 
 	virtual void UpdateGlobalBounds();
-	FloatRect getGlobalBounds;
+	FloatRect m_Ball_Rect;
 
 	//Pass Logic
 	float m_Pass_PosY;
