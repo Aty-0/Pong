@@ -20,7 +20,6 @@ Released Paths:
 (+) = Added
 (-) = Cutted
 --------------------------------------
-
 PATH 1.00002
 [ALL]
 (*)Small fixes on code
@@ -39,9 +38,3 @@ PATH 1.00001
 (*)Changed path to libraries. Now it look like this "..\libraries\SFML\include" and "..\libraries\SFML\lib-x86"
 [ALL]
 (*)Small fixes on code
-
-=======
-(*)Fix when in fatal error game not closing
-(*)Fix Text in Scene_Menu_List_Selection_Text 
-(*)Small fixes on code
-(*)Changed path to libraries. Now it look like this "..\libraries\SFML\include" and "..\libraries\SFML\lib-x86"
