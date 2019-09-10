@@ -4,7 +4,6 @@ For startup game:
 3.Don't delete dll and gamedata on game folder
 
 !!!For this game i'm used!!!
-=======
 Known Problems
 Ai Mode(Bot) Lagged.
 
