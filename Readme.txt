@@ -19,7 +19,6 @@ Released Paths:
 (+) = Added
 (-) = Cutted
 --------------------------------------
-
 PATH 1.00002
 [ALL]
 (*)Small fixes on code
