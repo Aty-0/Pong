@@ -148,27 +148,21 @@ void CBall::OnUpdate()
 		m_Ball.setPosition(m_Ball_PositionX, m_Ball_PositionY);
 		if (m_Pass_Pause == false)
 		{
-			//Pass
-			if (m_Pass_Player == 0)
-			{
-				m_Ball_PositionX += m_Ball_Speed * game->m_time;
-			}
-			else if (m_Pass_Player == 1)
-			{
-				m_Ball_PositionX -= m_Ball_Speed * game->m_time;
-			}
-			//m_Push func
-			if (m_Push == m_Push_Status::Lift_Up)
-			{
-				m_Ball_PositionY += m_Ball_Speed * game->m_time;
-			}
-			else if (m_Push == m_Push_Status::Put_Down)
-			{
-				m_Ball_PositionY -= m_Ball_Speed * game->m_time;
-			}
 			//Collision
 			UpdateGlobalBounds();
 			DetectCollision();
+
+			//Pass
+			if (m_Pass_Player == 0)
+				m_Ball_PositionX += m_Ball_Speed * game->m_time;
+			else if (m_Pass_Player == 1)
+				m_Ball_PositionX -= m_Ball_Speed * game->m_time;
+
+			//m_Push func
+			if (m_Push == m_Push_Status::Lift_Up)
+				m_Ball_PositionY += m_Ball_Speed * game->m_time;
+			else if (m_Push == m_Push_Status::Put_Down)
+				m_Ball_PositionY -= m_Ball_Speed * game->m_time;
 		}
 		else
 		{

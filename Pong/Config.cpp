@@ -1,15 +1,9 @@
 //===================Config.cpp====================
 // Purpose:		Game config's
-// Readiness:   Beta
+//
 //=================================================
 
 #include "Config.h"
-
-//Commands
-bool CConfig::LoadConfig(const char *Path, const char *NameElement)
-{
-	return 1;
-}
 
 //Set Float Value
 bool CConfig::LoadConfig(const char *Path, const char *NameElement, float &Value)
@@ -94,12 +88,6 @@ bool CConfig::LoadConfig(const char *Path, const char *NameElement, int &Value)
 			return 0;
 		}
 	}
-	return 1;
-}
-
-//Set String Value
-bool CConfig::LoadConfig(const char *Path, const char *NameElement, string &Text)
-{
 	return 1;
 }
 

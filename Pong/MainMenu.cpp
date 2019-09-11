@@ -24,6 +24,7 @@ CMainMenu::~CMainMenu()
 
 void CMainMenu::LaunchMenu()
 {
+	//Reset Sounds
 	soundloader->StopAllSounds();
 	//Stop active game
 	game->GameActive = false;
@@ -59,7 +60,7 @@ void CMainMenu::LoadScene()
 	case CMainMenu::MODE_SELECTION:
 		CREATE_TEXT(Scene_Menu_Selection_Text, 25, Default_Font, Color::White, 0.0f, 30, "Mode selections");
 		CREATE_TEXT(Scene_Menu_List_Selection_Text, 15, Default_Font, Color::White, 0, 100, "D - Default \nA - Play with bot");
-		CREATE_TEXT(Scene_Menu_Back_Text, 15, Default_Font, Color::White, game->m_WindowWidth - 200, game->m_WindowHeight, "Esc - Back to Menu");
+		CREATE_TEXT(Scene_Menu_Back_Text, 15, Default_Font, Color::White, game->m_WindowWidth - 190, game->m_WindowHeight - 30, "Esc - Back to Menu");
 		break;
 
 	default:
@@ -71,6 +72,7 @@ void CMainMenu::LoadScene()
 void CMainMenu::LaunchGame()
 {
 	logger->Print("Load all game classes", logger->Debug);
+	//Reset Sounds
 	soundloader->StopAllSounds();
 
 	//Game 

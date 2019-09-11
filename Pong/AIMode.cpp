@@ -9,6 +9,7 @@ void CAIMode::Update()
 {
 	if (ball->m_Pass_Pause == false)
 	{
+		//Move Logic
 		if (p2->m_Player_PositionY >= game->m_WindowHeight - 40)
 		{
 			p2->m_Player_PositionY = game->m_WindowHeight - 55.0f;
@@ -22,13 +23,17 @@ void CAIMode::Update()
 			p2->m_Player_PositionY = ball->m_Ball_PositionY - AI_Fault;
 		}
 
+
+		//Fault Logic
 		if (AIMode_NoFault == false)
 		{
+			//Dynamicly change fault
 			if (AI_Fault >= AI_Max_Fault)
 				AI_Fault--;
 			else if (AI_Fault <= AI_Max_Fault)
 				AI_Fault++;
 
+			//Time Regenerate
 			if (TimeRegenerateFault <= 0.0f)
 				RegenerateFault();
 			else
@@ -37,11 +42,13 @@ void CAIMode::Update()
 	}
 	else
 	{
+		//Try search Y ball position, if bot on player possition his stop search
 		if (p2->m_Player_PositionY == ball->m_Ball_PositionY)
 			AI_OnSpawnPoint = true;
 		else
 			AI_OnSpawnPoint = false;
 
+		//Search
 		if (AI_OnSpawnPoint == false)
 		{
 			//Walk to spawn ball

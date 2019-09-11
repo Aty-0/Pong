@@ -11,7 +11,7 @@
 CCountText::CCountText()
 {
 	logger->Print("Load count text", logger->Debug);
-	CREATE_TEXT(CountText, 18, Default_Font, Color::White, 10, 10, "");
+	CREATE_TEXT(CountText, 16, Default_Font, Color::White, 5, 10, "");
 }
 
 void CCountText::OnRender(RenderWindow &window)

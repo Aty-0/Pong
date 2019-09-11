@@ -4,8 +4,6 @@
 //=======================================================
 
 #include "Pong_grid.h"
-#include "Ball.h"
-#include "Player.h"
 
 CPong_grid::CPong_grid()
 {
