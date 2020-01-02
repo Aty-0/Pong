@@ -4,11 +4,13 @@
 //=================================================
 
 #pragma once
-#include "SFML/Graphics.hpp"
-#include "SFML/Network.hpp"
+#include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include "macros.h"
 #include "Logger.h"
 #include <iostream>
+
+#define GAME_VERSION "1.00003"
 
 using namespace sf;
 
@@ -22,7 +24,6 @@ public:
 	Clock m_clock;
 	Int64 m_time;
 	//Engine
-	const char *GAME_VERSION = "1.00002";
 
 	void CreateGame();
 	void LoadGame(RenderWindow &window);

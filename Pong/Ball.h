@@ -31,8 +31,6 @@ public:
 	Color m_Ball_Color;
 	bool m_Ball_Draw;
 
-	//if ball deleted or something like this
-	bool m_Ball_Stop_All_Logic;
 	//Ball stats
 
 	virtual void UpdateGlobalBounds();

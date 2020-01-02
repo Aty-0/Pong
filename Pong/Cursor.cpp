@@ -40,10 +40,8 @@ void CCursor::Update(RenderWindow &window)
 {
 	if (Visible == true)
 	{
-		//Get Mouse X
-		CursorPos.x = Mouse::getPosition(window).x;
-		//Get Mouse Y
-		CursorPos.y = Mouse::getPosition(window).y;
+		//Get Mouse position
+		CursorPos = Vector2f(Mouse::getPosition(window));
 		//Set Position for sprite
 		CursorSprite.setPosition(CursorPos);
 	}

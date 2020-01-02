@@ -42,7 +42,8 @@ void CLogger::CreateLogFile()
 	if (!Log_File)
 		std::cout << "Can't create log file!" << std::endl;
 
-	Log_File << "Pong Log File\n";
+	Log_File << "===================================================================\n";
+	Log_File << "Pong Log File\nVersion " + string(GAME_VERSION) + "\n";
 	Log_File << "===================================================================\n";
 	Log_File << LogOutput;
 	Log_File.close();

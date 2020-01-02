@@ -21,7 +21,6 @@ CBall::CBall()
 	m_Ball_Angle = 0.0f;
 	m_Ball_Speed = 0.2f;
 	m_Ball_Color = Color::White;
-	m_Ball_Stop_All_Logic = false;
 	m_Pass_Pause_Default_Time = 10.0f;
 	//Load configs
 	config->LoadConfig("Gamedata/Config/ball.xml", "Speed", m_Ball_Speed);
@@ -49,7 +48,6 @@ CBall::~CBall()
 	m_Pass_Pause_Time = 0.0f;
 	m_Pass_Pause_Default_Time = 0.0f;
 	m_Ball_Color = Color::White;
-	m_Ball_Stop_All_Logic = true;
 	m_Ball_Draw = false;
 	UpdateBallStats();
 }
@@ -87,7 +85,7 @@ void CBall::RandomPassBall()
 {
 	//Set random pass and y pos
 	m_Pass_Player = std::rand() % 2;
-	m_Pass_PosY = std::rand() % game->m_WindowHeight;
+	m_Pass_PosY = float(std::rand() % game->m_WindowHeight);
 
 
 	m_Ball_PositionY = m_Pass_PosY;
@@ -143,39 +141,37 @@ void CBall::PassBall()
 
 void CBall::OnUpdate()
 {
-	if (!m_Ball_Stop_All_Logic)
+	if (m_Pass_Pause == false)
 	{
-		m_Ball.setPosition(m_Ball_PositionX, m_Ball_PositionY);
-		if (m_Pass_Pause == false)
+		//Collision
+		UpdateGlobalBounds();
+		DetectCollision();
+
+		if (m_Push == m_Push_Status::Lift_Up)
+			m_Ball_PositionY += m_Ball_Speed * game->m_time;
+		else if (m_Push == m_Push_Status::Put_Down)
+			m_Ball_PositionY -= m_Ball_Speed * game->m_time;
+
+		//Pass
+		if (m_Pass_Player == 0)
+			m_Ball_PositionX += m_Ball_Speed * game->m_time;
+		else if (m_Pass_Player == 1)
+			m_Ball_PositionX -= m_Ball_Speed * game->m_time;
+
+	}
+	else
+	{
+		m_Pass_Pause_Time -= 0.01f * game->m_time;
+
+		if (m_Pass_Pause_Time <= 0.0f)
 		{
-			//Collision
-			UpdateGlobalBounds();
-			DetectCollision();
-
-			//Pass
-			if (m_Pass_Player == 0)
-				m_Ball_PositionX += m_Ball_Speed * game->m_time;
-			else if (m_Pass_Player == 1)
-				m_Ball_PositionX -= m_Ball_Speed * game->m_time;
-
-			//m_Push func
-			if (m_Push == m_Push_Status::Lift_Up)
-				m_Ball_PositionY += m_Ball_Speed * game->m_time;
-			else if (m_Push == m_Push_Status::Put_Down)
-				m_Ball_PositionY -= m_Ball_Speed * game->m_time;
-		}
-		else
-		{
-			m_Pass_Pause_Time -= 0.01f * game->m_time;
-
-			if (m_Pass_Pause_Time <= 0.0f)
-			{
-				soundloader->PlaySoundFromFile("Gamedata/Sounds/Ball_Created.wav", 10.0f, 1.0f, false);
-				m_Pass_Pause = false;
-				m_Ball_Draw = true;
-			}
+			soundloader->PlaySoundFromFile("Gamedata/Sounds/Ball_Created.wav", 10.0f, 1.0f, false);
+			m_Pass_Pause = false;
+			m_Ball_Draw = true;
 		}
 	}
+
+	m_Ball.setPosition(m_Ball_PositionX, m_Ball_PositionY);	
 }
 
 void CBall::DetectCollision()
@@ -215,7 +211,7 @@ void CBall::DetectCollision()
 	else if (m_Ball_PositionY >= game->m_WindowHeight + 10)
 	{
 		logger->Print("m_Ball out of screen!", logger->Warning);
-		m_Ball_PositionY = game->m_WindowHeight - 10;
+		m_Ball_PositionY = float(game->m_WindowHeight - 10);
 	}
 
 	//It's reset trigger, if ball ont needed position then he reset

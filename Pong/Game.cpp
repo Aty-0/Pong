@@ -34,7 +34,18 @@ CGame::CGame()
 
 CGame::~CGame()
 {
-
+	SAFE_DELETE(pong_grig);
+	SAFE_DELETE(p1);
+	SAFE_DELETE(p2);
+	SAFE_DELETE(aimode);
+	SAFE_DELETE(soundloader);
+	SAFE_DELETE(mainmenu);
+	SAFE_DELETE(counttext);
+	SAFE_DELETE(ball);
+	SAFE_DELETE(pause);
+	SAFE_DELETE(config);
+	SAFE_DELETE(logger);
+	SAFE_DELETE(game);
 }
 
 void CGame::CreateWindow()
@@ -97,8 +108,8 @@ void CGame::CreateGame()
 			m_time = m_time / 800;
 			//Update event
 			UpdateEvent(window);
-			OnRender(window);
 			OnUpdate(window);
+			OnRender(window);
 		}
 	}
 }
@@ -106,18 +117,12 @@ void CGame::CreateGame()
 void CGame::LoadGame(RenderWindow &window)
 {
 	logger->Print("Load Game...", logger->Debug);
-	if (!game && game == NULL)
-	{
-		logger->Print("game == NULL", logger->FatalError);
-	}
-	else
-	{
-		pause = new CPause();
-		aimode = new CAIMode();
-		soundloader = new CSoundLoader();
-		//Start game
-		mainmenu = new CMainMenu();	
-	}
+
+	pause = new CPause();
+	aimode = new CAIMode();
+	soundloader = new CSoundLoader();
+	//Start game
+	mainmenu = new CMainMenu();
 }
 
 void CGame::OnRender(RenderWindow &window)
@@ -169,10 +174,8 @@ void CGame::OnExit(RenderWindow &window)
 		logger->ShowErrorMsg();
 	else
 		m_App_State = false;
-	//Delete logger
-	SAFE_DELETE(logger);
+
 	window.close();
-	SAFE_DELETE(game);
 }
 
 void CGame::UpdateEvent(RenderWindow &window)
