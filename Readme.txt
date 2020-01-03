@@ -3,21 +3,17 @@ For startup game:
 2.Need instal Microsoft Visual C++
 3.Don't delete dll and gamedata on game folder
 
-!!!For this game i'm used!!!
-Known Problems
-Ai Mode(Bot) Lagged.
-
-For this game im used 
+For this game i'm used 
 SFML
 TinyXML2
 
 Released Paths:
 --------------------------------------
 [NAME_CLASS]
-
 (*) = Edit
 (+) = Added
 (-) = Cutted
+
 --------------------------------------
 PATH 1.00003
 [ALL]
