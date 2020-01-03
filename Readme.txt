@@ -21,11 +21,11 @@ Released Paths:
 --------------------------------------
 PATH 1.00003
 [ALL]
-(*)Small fixes on code
+(*)Small fixes in code
 --------------------------------------
 PATH 1.00002
 [ALL]
-(*)Small fixes on code
+(*)Small fixes in code
 [COUNT TEXT]
 (*)Changed count text size | 20 - 16
 (*)Added spacing on text
@@ -34,7 +34,7 @@ PATH 1.00002
 [MAINMENU]
 (*)Fixed position Scene_Menu_Back_Text
 [AIMODE]
-(*)Fixed Ai on pause not moving to spawn point ball
+(*)Fixed Ai in pause not moving to spawn point ball
 
 --------------------------------------
 PATH 1.00001
@@ -45,4 +45,4 @@ PATH 1.00001
 [PROJECT]
 (*)Changed path to libraries. Now it look like this "..\libraries\SFML\include" and "..\libraries\SFML\lib-x86"
 [ALL]
-(*)Small fixes on code
+(*)Small fixes in code
