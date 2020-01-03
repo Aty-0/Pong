@@ -28,7 +28,7 @@ PATH 1.00002
 (*)Small fixes in code
 [COUNT TEXT]
 (*)Changed count text size | 20 - 16
-(*)Added spacing on text
+(*)Added spacing in text
 [PLAYER]
 (*)Changed position 
 [MAINMENU]
