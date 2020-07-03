@@ -1,15 +1,11 @@
-For startup game:
-1.Need instal OpenAL!
-2.Need instal Microsoft Visual C++
-3.Don't delete dll and gamedata on game folder
 
-For this game i'm used 
+For this game I'm used 
 SFML
 TinyXML2
 
 Released Paths:
 --------------------------------------
-[NAME_CLASS]
+[NAME OF CLASS]
 (*) = Edit
 (+) = Added
 (-) = Cutted
@@ -23,19 +19,19 @@ PATH 1.00002
 [ALL]
 (*)Small fixes in code
 [COUNT TEXT]
-(*)Changed count text size | 20 - 16
+(*)Changed count text size
 (*)Added spacing in text
 [PLAYER]
-(*)Changed position 
+(*)Changed default positions
 [MAINMENU]
-(*)Fixed position Scene_Menu_Back_Text
+(*)Fixed position for Scene_Menu_Back_Text
 [AIMODE]
-(*)Fixed Ai in pause not moving to spawn point ball
+(*)Fixed Ai in pause, he moving to ball spawn point 
 
 --------------------------------------
 PATH 1.00001
 [GAME]
-(*)Fix when in fatal error game not closing
+(*)Fix when game get fatal error game not closing
 [MAIN MENU]
 (*)Fix Text in Scene_Menu_List_Selection_Text 
 [PROJECT]
