@@ -19,71 +19,69 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIMode.h" />
-    <ClInclude Include="Ball.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="CountText.h" />
-    <ClInclude Include="Cursor.h" />
-    <ClInclude Include="Fonts.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="macros.h" />
-    <ClInclude Include="MainMenu.h" />
-    <ClInclude Include="Pause.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Pong_grid.h" />
-    <ClInclude Include="SoundLoader.h" />
-    <ClInclude Include="tinyxml2.h" />
+    <ClInclude Include="game\AIMode.h" />
+    <ClInclude Include="game\Ball.h" />
+    <ClInclude Include="core\common.h" />
+    <ClInclude Include="core\Singleton.h" />
+    <ClInclude Include="game\Scene.h" />
+    <ClInclude Include="game\SceneManager.h" />
+    <ClInclude Include="game\Fonts.h" />
+    <ClInclude Include="core\Game.h" />
+    <ClInclude Include="core\Logger.h" />
+    <ClInclude Include="game\GameObject.h" />
+    <ClInclude Include="game\Player.h" />
+    <ClInclude Include="game\PongGrid.h" />
+    <ClInclude Include="core\SoundLoader.h" />
+    <ClInclude Include="game\UIText.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AIMode.cpp" />
-    <ClCompile Include="Ball.cpp" />
-    <ClCompile Include="Config.cpp" />
-    <ClCompile Include="CountText.cpp" />
-    <ClCompile Include="Cursor.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MainMenu.cpp" />
-    <ClCompile Include="Pause.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Pong_grid.cpp" />
-    <ClCompile Include="SoundLoader.cpp" />
-    <ClCompile Include="tinyxml2.cpp" />
+    <ClCompile Include="game\AIMode.cpp" />
+    <ClCompile Include="game\Ball.cpp" />
+    <ClCompile Include="game\Scene.cpp" />
+    <ClCompile Include="game\SceneManager.cpp" />
+    <ClCompile Include="core\Game.cpp" />
+    <ClCompile Include="core\Logger.cpp" />
+    <ClCompile Include="core\Main.cpp" />
+    <ClCompile Include="game\Fonts.cpp" />
+    <ClCompile Include="game\GameObject.cpp" />
+    <ClCompile Include="game\Player.cpp" />
+    <ClCompile Include="game\PongGrid.cpp" />
+    <ClCompile Include="core\SoundLoader.cpp" />
+    <ClCompile Include="game\UIText.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{701B3239-60A2-4988-94D4-0B8533E12310}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Pong</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -139,17 +137,21 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>../libraries/SFML/include/;../Pong/;#(SolutionDir)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\libraries\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-window-d.lib;sfml-graphics-d.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -180,7 +182,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -189,12 +191,16 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>../libraries/SFML/include/;../Pong/;#(SolutionDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\libraries\SFML\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-main.lib;sfml-system.lib;sfml-audio.lib;sfml-window.lib;sfml-graphics.lib;$(CoreLibraryDependencies);%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

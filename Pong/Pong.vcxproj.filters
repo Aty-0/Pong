@@ -21,94 +21,88 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
+    <ClInclude Include="core\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CountText.h">
+    <ClInclude Include="game\Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Ball.h">
+    <ClInclude Include="core\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Logger.h">
+    <ClInclude Include="game\PongGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pong_grid.h">
+    <ClInclude Include="game\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="game\Fonts.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="macros.h">
+    <ClInclude Include="core\SoundLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Fonts.h">
+    <ClInclude Include="game\AIMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
+    <ClInclude Include="core\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SoundLoader.h">
+    <ClInclude Include="core\Singleton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cursor.h">
+    <ClInclude Include="game\GameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AIMode.h">
+    <ClInclude Include="game\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Pause.h">
+    <ClInclude Include="game\SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h">
+    <ClInclude Include="game\UIText.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tinyxml2.h">
-      <Filter>Header Files\XML</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="core\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="core\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CountText.cpp">
+    <ClCompile Include="game\Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Ball.cpp">
+    <ClCompile Include="core\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
+    <ClCompile Include="game\PongGrid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pong_grid.cpp">
+    <ClCompile Include="game\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="core\SoundLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenu.cpp">
+    <ClCompile Include="game\AIMode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SoundLoader.cpp">
+    <ClCompile Include="game\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Cursor.cpp">
+    <ClCompile Include="game\Fonts.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AIMode.cpp">
+    <ClCompile Include="game\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pause.cpp">
+    <ClCompile Include="game\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Config.cpp">
+    <ClCompile Include="game\UIText.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tinyxml2.cpp">
-      <Filter>Source Files\XML</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
