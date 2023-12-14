@@ -36,6 +36,9 @@ namespace sbt
 
 		m_keys[0] = up;
 		m_keys[1] = down;
+
+		m_ai = new AIMode();
+		m_ai->setPlayer(this);
 	}
 
 	Player::~Player()
@@ -118,10 +121,10 @@ namespace sbt
 	{
 		updateMovement(deltaTime);
 		checkInvisibleWallsCollision();
-		//if (m_auto)
-		//{
-		//	// TODO: Do somthing
-		//}
+		if (m_auto)
+		{
+			m_ai->onUpdate(deltaTime);
+		}
 	}
 
 	void Player::onRender(sf::RenderWindow& window)
@@ -134,7 +137,12 @@ namespace sbt
 		m_score++;
 	}
 
-	[[nodiscard]] std::int32_t Player::getScore() const
+	bool Player::getAutoMode() const
+	{
+		return m_auto;
+	}
+
+	std::int32_t Player::getScore() const
 	{
 		return m_score;
 	}

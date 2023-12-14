@@ -15,7 +15,7 @@
 
 namespace sbt
 {
-	Game::Game() : m_isPaused(false)
+	Game::Game() : m_isPaused(false), m_frames(0), m_fps(0), m_delta_time(0)
 	{
 
 	}
@@ -56,6 +56,19 @@ namespace sbt
 		m_window.setVerticalSyncEnabled(m_VSync);
 	}
 
+	void Game::calculateFps()
+	{
+		auto time = m_clockFps.getElapsedTime();
+		if (sf::seconds(1) <= time)
+		{
+			m_fps = m_frames;
+			m_frames = 0;
+			m_clockFps.restart();
+		}
+
+		m_frames++;
+	}
+
 	void Game::calculateDeltaTime()
 	{
 		m_delta_time = m_clock.getElapsedTime().asMicroseconds() / 1000000.0f;
@@ -69,7 +82,9 @@ namespace sbt
 		
 		while (m_window.isOpen())
 		{
+			calculateFps();
 			calculateDeltaTime();
+
 			updateEvent(m_window);
 			onUpdate(m_window);
 			onRender(m_window);
@@ -91,15 +106,30 @@ namespace sbt
 
 		m_sc = SceneManager::getInstance();
 
+		auto ball = new Ball();
+
+		m_sc->addGameObject(ball, "ball");
+
 		auto p1 = new Player({ 50.0f, m_WindowHeight / 2.0f }, { 15.0f, 100.0f, }, 460.0f, sf::Keyboard::W, sf::Keyboard::S);
+		//p1->setAutoMode(true);
 		m_sc->addGameObject(p1, "p1");
 
 		auto p2 = new Player({ m_WindowWidth - 50.0f , m_WindowHeight / 2.0f },
 			{ 15.0f, 100.0f, }, 460.0f, sf::Keyboard::I, sf::Keyboard::K);
 		m_sc->addGameObject(p2, "p2");
 		
+		// Add players to update them scores
+		ball->addPlayer(p1);
+		ball->addPlayer(p2);
+		
 		auto score = new UIText();
 		m_sc->addGameObject(score, "score_text");
+		auto noteText = new UIText();
+		noteText->setText("Note:\nEsc - Pause\nF1 - AI for second player\nQ - Exit (in pause)\nF2 - Note visibility toggle");
+		noteText->setPosition({ 0.0f, 50.0f });
+		noteText->setFontSize(14.0f);
+		noteText->setColor({ 255, 255, 255, 100 });
+		m_sc->addGameObject(noteText, "noteText");
 
 		auto pauseText = new UIText();
 		pauseText->setText("Paused");
@@ -111,23 +141,24 @@ namespace sbt
 
 		auto ver_text = new UIText();
 		ver_text->setText("Game version: " GAME_VERSION);
-		ver_text->setPosition({ 20.0f, m_WindowHeight - 20.0f });
+		ver_text->setPosition({ 5.0f, m_WindowHeight - 40.0f });
 		ver_text->setFontSize(14.0f);
 		ver_text->setColor({255, 255, 255, 100});
 		ver_text->setDraw(false);
 
 		m_sc->addGameObject(ver_text, "ver_text");
 
+
+		auto fps_text = new UIText();
+		fps_text->setPosition({ 5.0f, m_WindowHeight - 20.0f });
+		fps_text->setFontSize(14.0f);
+		fps_text->setColor({ 255, 255, 255, 100 });
+		
+		m_sc->addGameObject(fps_text, "fps_text");
+
 		auto grid = new PongGrid();
 		m_sc->addGameObject(grid, "PongGrid");
 		
-		auto ball = new Ball();
-
-		// Add players to update them scores
-		ball->addPlayer(p1);
-		ball->addPlayer(p2);
-		
-		m_sc->addGameObject(ball, "ball");
 	}
 
 	void Game::onRender(sf::RenderWindow& window)
@@ -144,12 +175,18 @@ namespace sbt
 
 		// fix me:  lol 
 		//		    bro use callbacks pls 
-		const static auto scoreText = m_sc->getGameObjectByName<UIText>("score_text");
-		const static auto p1 = m_sc->getGameObjectByName<Player>("p1");
-		const static auto p2 = m_sc->getGameObjectByName<Player>("p2");
+		static const auto scoreText = m_sc->getGameObjectByName<UIText>("score_text");
+		static const auto p1 = m_sc->getGameObjectByName<Player>("p1");
+		static const auto p2 = m_sc->getGameObjectByName<Player>("p2");
 
 		if (scoreText)
 			scoreText->setText(std::to_string(p1->getScore()) + ":" + std::to_string(p2->getScore()));
+		
+		static const auto fps_text = m_sc->getGameObjectByName<UIText>("fps_text");
+		
+		if (fps_text)
+			fps_text->setText("fps:" + std::to_string(m_fps));
+
 	}
 
 	void Game::onExit(sf::RenderWindow& window)
@@ -171,10 +208,16 @@ namespace sbt
 				if (event.key.code == sf::Keyboard::Escape)
 				{
 					m_isPaused = !m_isPaused;
-
-					const static auto ver_text = m_sc->getGameObjectByName<UIText>("ver_text");
-					const static auto pauseText = m_sc->getGameObjectByName<UIText>("pause_text");
-					const static auto grid = m_sc->getGameObjectByName<PongGrid>("PongGrid");
+					
+					if (m_isPaused)
+					{
+						static const auto sl = SoundLoader::getInstance();
+						sl->playSound("Pause", 70.0f, 1.0f, false);
+					}
+					
+					static const auto ver_text = m_sc->getGameObjectByName<UIText>("ver_text");
+					static const auto pauseText = m_sc->getGameObjectByName<UIText>("pause_text");
+					static const auto grid = m_sc->getGameObjectByName<PongGrid>("PongGrid");
 					
 					if(grid)
 						grid->setDraw(!m_isPaused);
@@ -184,6 +227,18 @@ namespace sbt
 
 					if(pauseText)
 						pauseText->setDraw(m_isPaused);
+				}
+
+				if (event.key.code == sf::Keyboard::F2)
+				{
+					static const auto noteText = m_sc->getGameObjectByName<UIText>("noteText");
+					noteText->setDraw(!noteText->isDrawn());
+				}
+
+				if (event.key.code == sf::Keyboard::F1)
+				{
+					const static auto p2 = m_sc->getGameObjectByName<Player>("p2");
+					p2->setAutoMode(!p2->getAutoMode());
 				}
 
 				if (event.key.code == sf::Keyboard::Q)

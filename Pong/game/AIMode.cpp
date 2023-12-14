@@ -1,70 +1,102 @@
-//===================AIMode.cpp======================
-// Purpose:		AI
-//
-//===================================================
-
 #include "AIMode.h"
+#include "game/Ball.h"
+#include "game/Player.h"
+#include "core/Game.h"
+#include "core/Logger.h"
+#include "game/SceneManager.h"
 
 namespace sbt
 {
+	AIMode::AIMode() : m_maxTime(15.0f)
+	{
+		regenerateFault();
+	}
+	
+	AIMode::~AIMode()
+	{
+
+	}
+	
 	void AIMode::onUpdate(float deltaTime)
 	{
-		//if (ball->m_Pass_Pause == false)
-		//{
-		//	//Move Logic
-		//	if (p2->m_Player_PositionY >= game->m_WindowHeight - 40)
-		//	{
-		//		p2->m_Player_PositionY = game->m_WindowHeight - 55.0f;
-		//	}
-		//	else if (p2->m_Player_PositionY <= 0)
-		//	{
-		//		p2->m_Player_PositionY = 5;
-		//	}
-		//	else
-		//	{
-		//		p2->m_Player_PositionY = ball->m_Ball_PositionY - AI_Fault;
-		//	}
-		//
-		//
-		//	//Fault Logic
-		//	if (AIMode_NoFault == false)
-		//	{
-		//		//Dynamicly change fault
-		//		if (AI_Fault >= AI_Max_Fault)
-		//			AI_Fault--;
-		//		else if (AI_Fault <= AI_Max_Fault)
-		//			AI_Fault++;
-		//
-		//		//Time Regenerate
-		//		if (TimeRegenerateFault <= 0.0f)
-		//			RegenerateFault();
-		//		else
-		//			TimeRegenerateFault -= 0.05f;
-		//	}
-		//}
-		//else
-		//{
-		//	//Try search Y ball position, if bot on player possition his stop search
-		//	if (p2->m_Player_PositionY == ball->m_Ball_PositionY)
-		//		AI_OnSpawnPoint = true;
-		//	else
-		//		AI_OnSpawnPoint = false;
-		//
-		//	//Search
-		//	if (AI_OnSpawnPoint == false)
-		//	{
-		//		//Walk to spawn ball
-		//		if (p2->m_Player_PositionY >= ball->m_Ball_PositionY)
-		//			p2->m_Player_PositionY -= p2->m_Player_Speed * game->m_time;
-		//		else if (p2->m_Player_PositionY <= ball->m_Ball_PositionY)
-		//			p2->m_Player_PositionY += p2->m_Player_Speed * game->m_time;
-		//	}
-		//}
+		SBT_ASSERT(m_player);
+		SBT_ASSERT(m_ball);
+
+		static const auto game = Game::getInstance();
+		if (game->isPaused())
+			return;
+
+		
+		if (!m_noFault)
+		{
+			m_time -= 4.0f * deltaTime;
+			if (m_time <= 0.0f)
+			{
+				m_time = m_maxTime;
+				regenerateFault();
+			}
+		}
+
+		auto player_pos = m_player->getPosition();
+		if (m_ball->m_passPause)
+		{
+			const auto height = game->getHeight();
+			if (player_pos.y >= height / 2)
+			{
+				m_player->m_walk_up = true;
+				m_player->m_walk_down = false;
+			}
+			else if (player_pos.y <= height / 2)
+			{
+				m_player->m_walk_up = false;
+				m_player->m_walk_down = true;
+			}
+		}
+		else
+		{
+			// Try to search Y ball position, if bot on player position his stop search
+			auto ballYpos = m_ball->getPosition().y;
+			if (player_pos.y == ballYpos)
+				m_onSpawnPoint = true;
+			else
+				m_onSpawnPoint = false;
+		
+			if (m_onSpawnPoint == false)
+			{
+				if (player_pos.y >= ballYpos - m_fault)
+				{
+					m_player->m_walk_up = true;
+					m_player->m_walk_down = false;
+
+					//player_pos.y -= speed * deltaTime;
+				}
+				else if (player_pos.y <= ballYpos + m_fault)
+				{
+					m_player->m_walk_up = false;
+					m_player->m_walk_down = true;
+
+					//player_pos.y += speed * deltaTime;
+				}
+			}
+		}
+
+		m_player->setPosition(player_pos);
+	}
+
+	void AIMode::setPlayer(Player* player)
+	{
+		m_player = player;
+
+		// FIX ME: Wierd
+		//         And need to create ball first then player 
+		//		   For this 
+		m_ball = SceneManager::getInstance()->getGameObjectByName<Ball>("ball");
 	}
 
 	void AIMode::regenerateFault()
 	{
-		//TimeRegenerateFault = 5.0f;
-		//AI_Max_Fault = std::rand() % 100;
+		//VERB("AIMode::regenerateFault");
+
+		m_fault = std::rand() % 200;
 	}
 }

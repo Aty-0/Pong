@@ -3,7 +3,7 @@
 
 namespace sbt
 {
-	SoundLoader::SoundLoader()
+	SoundLoader::SoundLoader() : m_masterVolume(0.3f)
 	{
 
 	}
@@ -14,7 +14,11 @@ namespace sbt
 	}
 
 	void SoundLoader::playSound(const char* name, float Volume, float Pitch, bool Loop)
-	{
+	{		
+		// Don't play when other sound is played
+		//if (m_sound.getStatus() == sf::Sound::Playing)
+		//	return;
+
 		auto it = std::find_if(m_sounds.begin(), m_sounds.end(),
 			[name](std::pair<const char*, sf::SoundBuffer> el) { return el.first == name; });
 
@@ -24,11 +28,10 @@ namespace sbt
 			return;
 		}
 
-	
 		m_sound.setBuffer(it->second);
 		m_sound.setLoop(Loop);
 		m_sound.setPitch(Pitch);
-		m_sound.setVolume(Volume);
+		m_sound.setVolume(m_masterVolume * Volume);
 		m_sound.play();
 	}
 
@@ -59,9 +62,19 @@ namespace sbt
 		else
 		{
 			m_track.setPitch(Pitch);
-			m_track.setVolume(Volume);
+			m_track.setVolume(m_masterVolume * Volume);
 			m_track.setLoop(true);
 			m_track.play();
 		}
+	}
+
+	void SoundLoader::setMasterVolume(float volume)
+	{
+		m_masterVolume = volume;
+	}
+
+	float SoundLoader::getMasterVolume() const
+	{
+		return m_masterVolume;
 	}
 }

@@ -4,6 +4,7 @@
 
 namespace sbt
 {
+	class AIMode;
 	class Player : public GameObject
 	{
 	public:
@@ -25,13 +26,16 @@ namespace sbt
 
 		void addScore();
 		[[nodiscard]] std::int32_t getScore() const;
+		[[nodiscard]] bool getAutoMode() const;
+		
+		friend AIMode;
 	private:
 		sf::RectangleShape  m_body;
 		std::int32_t		m_score;
-	
 		bool m_walk_up;
 		bool m_walk_down;
 		bool m_auto;
+		AIMode* m_ai;
 
 		sf::Keyboard::Key* m_keys;
 	

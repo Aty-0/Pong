@@ -41,7 +41,7 @@ namespace sbt
 
 	void Ball::reset()
 	{
-		VERB("Ball::reset");
+		//VERB("Ball::reset");
 		m_passTime = m_passStartTime;
 		m_passPause = true;
 
@@ -58,7 +58,7 @@ namespace sbt
 
 	void Ball::passBall()
 	{
-		VERB("Ball::passBall");
+		//VERB("Ball::passBall");
 		m_passPlayer = m_passPlayer == 1 ? 0 : 1;
 
 		static const auto game = sbt::Game::getInstance();
@@ -81,9 +81,9 @@ namespace sbt
 
 		m_passPlayer = m_passPlayer == 0 ? 1 : 0;
 		
-		VERB("m_passPlayer%i", m_passPlayer);
+		//VERB("m_passPlayer%i", m_passPlayer);
 		static const auto sl = SoundLoader::getInstance();
-		sl->playSound("Ball_Hitted", 5.0f, 1.0f, false);
+		sl->playSound("Ball_Hitted", 50.0f, 1.0f, false);
 	}
 
 	void Ball::onUpdate(float deltaTime)
@@ -117,7 +117,7 @@ namespace sbt
 			// Check collision with screen bounds
 			if (position.y <= 0)
 			{
-				sl->playSound("Ball_Hitted", 5.0f, 1.0f, false);
+				sl->playSound("Ball_Hitted", 30.0f, 1.0f, false);
 				m_movement = Ball::MovementDirection::Up;
 
 				// Needed for protect ball for doesn't go out of screen 
@@ -125,7 +125,7 @@ namespace sbt
 			}
 			else if (position.y >= game->getHeight())
 			{
-				sl->playSound("Ball_Hitted", 5.0f, 1.0f, false);
+				sl->playSound("Ball_Hitted", 30.0f, 1.0f, false);
 				m_movement = Ball::MovementDirection::Down;
 
 				// Needed for protect ball for doesn't go out of screen 
@@ -136,14 +136,14 @@ namespace sbt
 			// What's a part of screen is it.
 			if (position.x >= game->getWidth())
 			{
-				sl->playSound("Ball_Scored", 10.0f, 1.0f, false);
+				sl->playSound("Ball_Scored", 20.0f, 1.0f, false);
 				m_players[0]->addScore();
 				m_passPlayer = 0;
 				reset();
 			}
 			else if (position.x <= 0)
 			{
-				sl->playSound("Ball_Scored", 10.0f, 1.0f, false);
+				sl->playSound("Ball_Scored", 20.0f, 1.0f, false);
 				m_players[1]->addScore();
 				m_passPlayer = 1;
 				reset();
@@ -155,7 +155,7 @@ namespace sbt
 
 			if (m_passTime <= 0.0f)
 			{
-				sl->playSound("Ball_Created", 5.0f, 1.0f, false);
+				sl->playSound("Ball_Created", 10.0f, 1.0f, false);
 
 				m_passPause = false;
 				setDraw(true);

@@ -137,6 +137,7 @@ namespace sbt
 			onDetectCollision();
 			return true;
 		}
+
 		return false;
 	}
 

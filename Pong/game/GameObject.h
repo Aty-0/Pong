@@ -1,5 +1,6 @@
 #pragma once
 #include "core/common.h"
+
 namespace sbt
 {
 	class GameObject

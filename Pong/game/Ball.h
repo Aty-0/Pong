@@ -3,6 +3,7 @@
 
 namespace sbt
 {
+	class AIMode;
 	class Player;
 	class Ball : public GameObject
 	{
@@ -23,7 +24,8 @@ namespace sbt
 
 		virtual void onDetectCollision() override;
 		virtual void onUpdate(float deltaTime) override;
-
+		
+		friend AIMode;
 	private:
 		void reset();
 		void randomPassBall();
