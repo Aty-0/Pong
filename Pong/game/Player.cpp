@@ -119,6 +119,10 @@ namespace sbt
 
 	void Player::onUpdate(float deltaTime)
 	{
+		static const auto game = Game::getInstance();
+		if (game->isPaused())
+			return;
+
 		updateMovement(deltaTime);
 		checkInvisibleWallsCollision();
 		if (m_auto)

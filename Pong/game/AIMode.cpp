@@ -22,11 +22,6 @@ namespace sbt
 		SBT_ASSERT(m_player);
 		SBT_ASSERT(m_ball);
 
-		static const auto game = Game::getInstance();
-		if (game->isPaused())
-			return;
-
-		
 		if (!m_noFault)
 		{
 			m_time -= 4.0f * deltaTime;
@@ -40,6 +35,7 @@ namespace sbt
 		auto player_pos = m_player->getPosition();
 		if (m_ball->m_passPause)
 		{
+			static const auto game = Game::getInstance();
 			const auto height = game->getHeight();
 			if (player_pos.y >= height / 2)
 			{
